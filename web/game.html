@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic-tac-toe - Game</title>
+    <!--START//BOOTSTRAP-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!--END//BOOTSTRAP-->
+
+    <!--JQuery-->
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+
+    <!--Ajax-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!--END//BOOTSTRAP-->
+
+
+    <!--START//Add style-files-->
+
+    <!--<link href='css/index_style.css' rel='stylesheet' type='text/css'>-->
+    <!--<link href='css/header_footer/header_footer_style.css' rel='stylesheet' type='text/css'>-->
+
+    <!--END//Add style-files-->
+
+    <!--START//Add js-files-->
+
+    <!--<script src="js/authentication.js"></script>-->
+
+    <!--END//Add js-files-->
+
+
+</head>
+<style>
+
+    body {
+        background-color: #ffff;
+    }
+
+
+    .lead {
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    .jumbotron .btn {
+        padding: 14px 24px;
+        font-size: 21px;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        border-radius: 4px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+
+    @media screen and (min-width: 768px) {
+        .header {
+            margin-bottom: 30px;
+        }
+    }
+
+    .header {
+        border-bottom: 1px solid #e5e5e5;
+        /*padding-left: 30px;*/
+        /*padding-right: 30px;*/
+    }
+
+    .header h3 {
+        padding-bottom: 19px;
+        margin-bottom: 0;
+        /*line-height: 40px;*/
+    }
+
+    @media screen and (min-width: 768px) {
+        .header, .footer {
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+
+    .footer {
+        padding-top: 19px;
+        color: #777;
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .author-footer>a{
+        color: #777777;
+    }
+
+
+
+
+
+</style>
+<body>
+
+<!--START//Main container of the site, it contains all sub-blocks-->
+<div class="container">
+    <!--START//Block for the bootstrap grid-->
+    <div class="row">
+        <!--START//The main block for all content on the page-->
+        <div class="col-md-8 col-md-offset-2">
+            <!--START//header-->
+            <header>
+                <div class="header">
+                    <!--START//Link in the header of the site-->
+                    <ul class="nav nav-pills pull-right">
+                        <!--START//button Sign in (right side)-->
+                        <li id="header-gamer-nickName"></li>
+                        <li class="active"><a href="/gamer/login">Sign in</a></li>
+                        <!--END//button Sign in (right side)-->
+                    </ul>
+                    <!--END//Link in the header of the site-->
+                    <!--START//Site name (left side)-->
+                    <h3 class="text-muted">Tic-Tac-Toe</h3>
+                    <!--END//Site name (left side)-->
+                </div>
+            </header>
+            <!--END//header-->
+
+            <!--//START//Main of page-->
+            <main>
+                <ul class="nav nav-pills pull-right">
+                    <!--START//button Sign in (right side)-->
+                    <li id="main-gamer-details"></li>
+                    <!--END//button Sign in (right side)-->
+                </ul>
+
+            </main>
+            <!--//END//Main of page-->
+            <!--START//Footer(basement) of the site-->
+            <footer>
+                <div class="footer">
+                    <!--START//Link to the author's website-->
+                    <p class="author-footer"><a href="http://www.doroshevych.pp.ua" target="_blank"> © Vadym
+                        Dorohsevych</a></p>
+                    <!--END//Link to the author's website-->
+                </div>
+            </footer>
+            <!--END//Footer(basement) of the site-->
+        </div>
+        <!--START//The main block for all content on the page-->
+    </div>
+    <!--END//Block for the bootstrap grid-->
+</div>
+<!--END//Main container of the site, it contains all sub-blocks-->
+</body>
+<script>
+    $.ajax({
+        "url": "http://localhost:8080/gamer/game/gamerDetails",
+        'method': 'get',
+        // 'headers': {
+        //         'Cookie': document.cookie
+        //     },
+        'success': function (response) {
+            $('#header-gamer-nickName').append('<a href="#">'+response.nickName+'</a>');
+            $('#main-gamer-details').append('Win: <a href="#">'+response.win+'</a>');
+            $('#main-gamer-details').append('Defeat: <a href="#">'+response.defeat+'</a>');
+            $('#main-gamer-details').append('Draw: <a href="#">'+response.draw+'</a>');
+        },
+        'error': function (error) {
+            // $('#header-gamer-nickName').append('<a href="#">Vadik</a>');
+        }
+    });
+</script>
+
+</body>
+</html>

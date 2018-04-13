@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<web-app version="3.1"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+    <!--//The main page that is displayed to the client-->
+    <!--//index.html-->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!--GamerRegistrationController of the 'GET' main page class-servlet.
+      Title - indexController
+      Link - /
+      -->
+    <!--<servlet>-->
+        <!--<servlet-name>indexController</servlet-name>-->
+        <!--<servlet-class>com.tic_tac_toe.controller.index.IndexController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>indexController</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--GamerRegistrationController of the RegistrationGamerController class-servlet.
+    Title - gamerRegistrationController
+    Link - /gamer/registration
+    -->
+    <servlet>
+        <servlet-name>gamerRegistrationController</servlet-name>
+        <servlet-class>com.tic_tac_toe.controller.gamer.GamerRegistrationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gamerRegistrationController</servlet-name>
+        <url-pattern>/gamer/registration</url-pattern>
+    </servlet-mapping>
+
+    <!--GamerLoginController of the GamerLoginController class-servlet.
+    Title - gamerLoginController
+    Link - /gamer/login
+    -->
+    <servlet>
+        <servlet-name>gamerLoginController</servlet-name>
+        <servlet-class>com.tic_tac_toe.controller.gamer.GamerLoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gamerLoginController</servlet-name>
+        <url-pattern>/gamer/login</url-pattern>
+    </servlet-mapping>
+
+
+    <!--GameController of the GameController class-servlet.
+    Title - gameController
+    Link - /gamer/game
+    -->
+    <servlet>
+        <servlet-name>gameController</servlet-name>
+        <servlet-class>com.tic_tac_toe.controller.gamer.game.GameController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gameController</servlet-name>
+        <url-pattern>/gamer/game</url-pattern>
+    </servlet-mapping>
+
+
+    <!--GamerDetailsController of the GamerDetailsController class-servlet.
+    Title - gamerDetailsController
+    Link - /gamer/game/gamerDetail
+    -->
+    <servlet>
+        <servlet-name>gamerDetailsController</servlet-name>
+        <servlet-class>com.tic_tac_toe.controller.gamer.GamerDetailsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gamerDetailsController</servlet-name>
+        <url-pattern>/gamer/game/gamerDetails</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>

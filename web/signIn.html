@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic-tac-toe - Sign In</title>
+    <!--START//BOOTSTRAP-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!--END//BOOTSTRAP-->
+
+    <!--JQuery-->
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+
+    <!--Ajax-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<style>
+    body {
+        background-color: #eee;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header {
+            margin-bottom: 30px;
+        }
+    }
+
+    .header {
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .header h3 {
+        padding-bottom: 19px;
+        margin-bottom: 0;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header, .footer {
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+
+    .footer {
+        padding-top: 19px;
+        color: #777;
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .author-footer>a{
+        color: #777777;
+    }
+
+
+    .header h3 {
+        padding-bottom: 19px;
+        margin-bottom: 0;
+        /*line-height: 40px;*/
+    }
+
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        border: 0;
+    }
+
+
+    .form-signin .form-control {
+        position: relative;
+        height: auto;
+        box-sizing: border-box;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+
+
+</style>
+<body>
+<!--START//Main container of the site, it contains all sub-blocks-->
+<div class="container">
+    <!--START//Block for the bootstrap grid-->
+    <div class="row">
+        <!--START//The main block for all content on the page-->
+        <div class="col-md-8 col-md-offset-2">
+            <!--START//header-->
+            <header>
+                <div class="header">
+                    <!--START//Link in the header of the site-->
+                    <ul class="nav nav-pills pull-right">
+                        <!--START//button Home(link to the index page) (right side)-->
+                        <li class="active"><a href="/">Home</a></li>
+                        <!--END//button Home(link to the index page) (right side)-->
+                        <!--START//button Sign Up(link to the registration page) (right side)-->
+                        <li><a href="/gamer/registration">Sign Up</a></li>
+                        <!--END//button Sign Up(link to the registration page) (right side)-->
+                    </ul>
+                    <!--END//Link in the header of the site-->
+                    <!--START//Site name (left side)-->
+                    <h3 class="text-muted">Tic-Tac-Toe</h3>
+                    <!--END//Site name (left side)-->
+                </div>
+            </header>
+            <!--END//header-->
+
+            <!--//START//Main of page-->
+            <main>
+                <!--START//Log in form-->
+                <form class="form-signin">
+                    <!--Title of the form-->
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <!--START//Label and input for the email adsress-->
+                    <label for="inputEmail" class="sr-only">Email address</label>
+                    <input type="nickName" id="inputEmail" class="form-control" placeholder="Nickname" required=""
+                           autofocus="">
+                    <!--END//Label and input for the email adsress-->
+                    <!--START//label and input for the password-->
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                    <!--END//label and input for the password-->
+                    <br>
+                    <!--Button log in-->
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+                </form>
+                <!--END//Log in form-->
+            </main>
+            <!--//END//Main of page-->
+
+            <!--START//Footer(basement) of the site-->
+            <footer>
+                <div class="footer">
+                    <!--START//Link to the author's website-->
+                    <p class="author-footer"><a href="http://www.doroshevych.pp.ua" target="_blank"> © Vadym
+                        Dorohsevych</a></p>
+                    <!--END//Link to the author's website-->
+                </div>
+            </footer>
+            <!--END//Footer(basement) of the site-->
+        </div>
+        <!--START//The main block for all content on the page-->
+    </div>
+    <!--END//Block for the bootstrap grid-->
+</div>
+<!--END//Main container of the site, it contains all sub-blocks-->
+
+</body>
+</html>
