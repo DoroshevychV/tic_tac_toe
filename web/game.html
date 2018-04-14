@@ -44,6 +44,13 @@
         background-color: #ffff;
     }
 
+    main {
+        margin-bottom: 20px;
+    }
+
+    .footer {
+        margin-top: 20px;
+    }
 
     .lead {
         color: rgba(0, 0, 0, 0.6);
@@ -73,7 +80,6 @@
         -ms-user-select: none;
         user-select: none;
     }
-
 
     @media screen and (min-width: 768px) {
         .header {
@@ -106,12 +112,45 @@
         border-top: 1px solid #e5e5e5;
     }
 
-    .author-footer>a{
+    .author-footer > a {
         color: #777777;
     }
 
+    .gamer-details {
+        margin-bottom: 40px;
+    }
 
+    .gamer-deatails-li {
+        margin-right: 5px;
+    }
 
+    /*START//style of cells*/
+    .cell {
+        height: 16.3vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+        padding-top: 3.5vh;
+        text-align: center;
+
+    }
+
+    .cell:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    /*START//style of text in the cells*/
+    .text-x {
+        font-size: 50px;
+        color: lemonchiffon;
+    }
+
+    .text-0 {
+        font-size: 50px;
+        color: lemonchiffon;
+    }
+
+    /*END//style of text in the cells*/
+    /*END//style of cells*/
 
 
 </style>
@@ -128,10 +167,10 @@
                 <div class="header">
                     <!--START//Link in the header of the site-->
                     <ul class="nav nav-pills pull-right">
-                        <!--START//button Sign in (right side)-->
+                        <!--START//button Home (right side)-->
                         <li id="header-gamer-nickName"></li>
-                        <li class="active"><a href="/gamer/login">Sign in</a></li>
-                        <!--END//button Sign in (right side)-->
+                        <li class="active"><a href="/">Home</a></li>
+                        <!--END//button Home (right side)-->
                     </ul>
                     <!--END//Link in the header of the site-->
                     <!--START//Site name (left side)-->
@@ -143,11 +182,48 @@
 
             <!--//START//Main of page-->
             <main>
-                <ul class="nav nav-pills pull-right">
+                <!--Gamer nickName-->
+                <h4 id="gamer-deatails-nickName"></h4>
+                <!--START//Gamer statistics-->
+                <ul class="nav nav-pills gamer-details">
+                    <li class="glyphicon glyphicon-circle-arrow-up gamer-deatails-li" id="gamer-deatails-win"><b>Win</b>
+                    </li>
+                    <li class="glyphicon glyphicon-circle-arrow-down gamer-deatails-li" id="gamer-deatails-defeat"><b>Defeat</b>
+                    </li>
+                    <li class="glyphicon glyphicon-globe gamer-deatails-li" id="gamer-deatails-draw"><b>Draw</b></li>
                     <!--START//button Sign in (right side)-->
                     <li id="main-gamer-details"></li>
                     <!--END//button Sign in (right side)-->
                 </ul>
+                <!--END//Gamer statistics-->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12"
+                             style="padding: 0px;height: 50vh;">
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-one">
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-two"
+                                 style="border-left: 2px white solid;border-right: 2px white solid;">
+                                <!--<span class="text-0">O</span>-->
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-three"></div>
+
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-four"
+                                 style="border-top: 2px white solid;border-bottom: 2px white solid;"></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-five"
+                                 style="border: 2px white solid;"></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-six"
+                                 style="border-top: 2px white solid;border-bottom: 2px white solid;"></div>
+
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-seven" style=""></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-eight"
+                                 style="border-left: 2px white solid;border-right: 2px white solid;"></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 cell" id="cell-nine"></div>
+                        </div>
+
+                    </div>
+                </div>
 
             </main>
             <!--//END//Main of page-->
@@ -169,22 +245,152 @@
 <!--END//Main container of the site, it contains all sub-blocks-->
 </body>
 <script>
+
+
+    var cells = ["cell-one", "cell-two", "cell-three", "cell-four", "cell-five", "cell-six", "cell-seven", "cell-eight", "cell-nine"];
+
+    var freeCells = [];
+
+    for (var i = 0; i < cells.length; i++) {
+        freeCells[i] = cells[i];
+    }
+    var gameStatus = Boolean(true);
+
+    //users step
+    $(document).ready(function () {
+        $(".cell").click(function (event) {
+            if (gameStatus) {
+                if ($(this).find("span").html() == null) {
+                    $(this).append("<span class=" + "text-x" + ">X</span>");
+                    remove(this.id);
+                    result();
+                    computerStep();
+                }
+            }
+        });
+    });
+
+    //computers step
+    function computerStep() {
+        if (gameStatus) {
+            if (freeCells.length > 0) {
+                var arrayCell = random();
+                $('#' + freeCells[arrayCell]).append("<span class=" + "text-0" + ">O</span>");
+                remove(freeCells[arrayCell]);
+                result();
+            } else {
+
+            }
+        }
+    }
+
+
     $.ajax({
         "url": "http://localhost:8080/gamer/game/gamerDetails",
         'method': 'get',
-        // 'headers': {
-        //         'Cookie': document.cookie
-        //     },
         'success': function (response) {
-            $('#header-gamer-nickName').append('<a href="#">'+response.nickName+'</a>');
-            $('#main-gamer-details').append('Win: <a href="#">'+response.win+'</a>');
-            $('#main-gamer-details').append('Defeat: <a href="#">'+response.defeat+'</a>');
-            $('#main-gamer-details').append('Draw: <a href="#">'+response.draw+'</a>');
+            $('#gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
+            $('#gamer-deatails-win').append("<span>" + " " + response.win + "</span>");
+            $('#gamer-deatails-defeat').append("<span>" + " " + response.defeat + "</span>");
+            $('#gamer-deatails-draw').append("<span>" + " " + response.draw + "</span>");
         },
         'error': function (error) {
-            // $('#header-gamer-nickName').append('<a href="#">Vadik</a>');
+
         }
     });
+
+    function sendResult(num) {
+
+    }
+
+
+    function result() {
+
+        var cellsValue = [9];
+
+        // initialisation array cellsVallue
+        for (var i = 0; i < cells.length; i++) {
+            cellsValue[i] = $("#" + cells[i]).find("span").html()
+        }
+
+        isNum(cells[0],cells[1],cells[2],cellsValue[0],cellsValue[1],cellsValue[2],checkingLines(cellsValue[0], cellsValue[1], cellsValue[2]));
+        isNum(cells[3],cells[4],cells[5],cellsValue[3],cellsValue[4],cellsValue[5],checkingLines(cellsValue[3], cellsValue[4], cellsValue[5]));
+        isNum(cells[6],cells[7],cells[8],cellsValue[6],cellsValue[7],cellsValue[8],checkingLines(cellsValue[6], cellsValue[7], cellsValue[8]));
+
+        isNum(cells[0],cells[4],cells[8],cellsValue[0],cellsValue[4],cellsValue[8],checkingLines(cellsValue[0], cellsValue[4], cellsValue[8]));
+        isNum(cells[6],cells[4],cells[2],cellsValue[6],cellsValue[4],cellsValue[2],checkingLines(cellsValue[6], cellsValue[4], cellsValue[2]));
+
+        isNum(cells[0],cells[3],cells[6],cellsValue[0],cellsValue[3],cellsValue[6],checkingLines(cellsValue[0], cellsValue[3], cellsValue[6]));
+        isNum(cells[1],cells[4],cells[7],cellsValue[1],cellsValue[4],cellsValue[7],checkingLines(cellsValue[1], cellsValue[4], cellsValue[7]));
+        isNum(cells[2],cells[5],cells[8],cellsValue[2],cellsValue[5],cellsValue[8],checkingLines(cellsValue[2], cellsValue[5], cellsValue[8]));
+
+    }
+
+    function checkingHorizontal() {
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 9; j++) {
+                checkingLines(j, ++j, j += 2);
+            }
+
+        }
+    }
+
+
+    function isNum(one_cell,two_cell,three_cell,one_v,two_v,three_v,num) {
+        if (num === 1) {
+            changeColorAndShowMessage(one_cell,two_cell,three_cell, "#337ab7");
+        } else if (num === -1) {
+            changeColorAndShowMessage(one_cell,two_cell,three_cell, "red");
+        } else if (num == 2) {
+            changeColorAndShowMessage(cells, "rgba(0,0,0,0.1)");
+        }
+    }
+
+    function changeColorAndShowMessage(one, two, three, color) {
+        $("#" + one).css("background-color", color);
+        $("#" + two).css("background-color", color);
+        $("#" + three).css("background-color", color);
+        // for (var i = 0; i < cells.length; i++) {
+        //     $("#" + cells[i]).css("background-color", color);
+        // }
+
+    }
+
+    function checkingLines(one, two, three) {
+
+        if ((one == "X" | one == "O") && (two == "X" | two == "O") && (three == "X" | three == "O")) {
+            if (one === two && one === three) {
+                gameStatus = Boolean(false);
+                if (one == "X") {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+            if (freeCells.length == 0) {
+                return 2;
+            }
+        }
+        return 0;
+
+
+    }
+
+    function random() {
+        var rand = Math.random() * (freeCells.length - 1);
+        return Math.round(rand);
+    }
+
+    function remove(value) {
+        for (var i = 0; i < freeCells.length; i++) {
+            if (freeCells[i] === value) {
+                freeCells.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+
 </script>
 
 </body>
