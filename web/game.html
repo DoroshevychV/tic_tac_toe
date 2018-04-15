@@ -313,46 +313,59 @@
             cellsValue[i] = $("#" + cells[i]).find("span").html()
         }
 
-        isNum(cells[0],cells[1],cells[2],cellsValue[0],cellsValue[1],cellsValue[2],checkingLines(cellsValue[0], cellsValue[1], cellsValue[2]));
-        isNum(cells[3],cells[4],cells[5],cellsValue[3],cellsValue[4],cellsValue[5],checkingLines(cellsValue[3], cellsValue[4], cellsValue[5]));
-        isNum(cells[6],cells[7],cells[8],cellsValue[6],cellsValue[7],cellsValue[8],checkingLines(cellsValue[6], cellsValue[7], cellsValue[8]));
-
-        isNum(cells[0],cells[4],cells[8],cellsValue[0],cellsValue[4],cellsValue[8],checkingLines(cellsValue[0], cellsValue[4], cellsValue[8]));
-        isNum(cells[6],cells[4],cells[2],cellsValue[6],cellsValue[4],cellsValue[2],checkingLines(cellsValue[6], cellsValue[4], cellsValue[2]));
-
-        isNum(cells[0],cells[3],cells[6],cellsValue[0],cellsValue[3],cellsValue[6],checkingLines(cellsValue[0], cellsValue[3], cellsValue[6]));
-        isNum(cells[1],cells[4],cells[7],cellsValue[1],cellsValue[4],cellsValue[7],checkingLines(cellsValue[1], cellsValue[4], cellsValue[7]));
-        isNum(cells[2],cells[5],cells[8],cellsValue[2],cellsValue[5],cellsValue[8],checkingLines(cellsValue[2], cellsValue[5], cellsValue[8]));
-
-    }
-
-    function checkingHorizontal() {
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 9; j++) {
-                checkingLines(j, ++j, j += 2);
-            }
-
+        //Horizontal
+        if (isNum(cells[0], cells[1], cells[2], cellsValue[0], cellsValue[1], cellsValue[2], checkingLines(cellsValue[0], cellsValue[1], cellsValue[2]))) {
+            return;
         }
+        if (isNum(cells[3], cells[4], cells[5], cellsValue[3], cellsValue[4], cellsValue[5], checkingLines(cellsValue[3], cellsValue[4], cellsValue[5]))) {
+            return;
+        }
+        if (isNum(cells[6], cells[7], cells[8], cellsValue[6], cellsValue[7], cellsValue[8], checkingLines(cellsValue[6], cellsValue[7], cellsValue[8]))) {
+            return;
+        }
+
+        //Diagonal
+        if (isNum(cells[0], cells[4], cells[8], cellsValue[0], cellsValue[4], cellsValue[8], checkingLines(cellsValue[0], cellsValue[4], cellsValue[8]))) {
+            return;
+        }
+        if (isNum(cells[6], cells[4], cells[2], cellsValue[6], cellsValue[4], cellsValue[2], checkingLines(cellsValue[6], cellsValue[4], cellsValue[2]))) {
+            return;
+        }
+
+        //Vertical
+        if (isNum(cells[0], cells[3], cells[6], cellsValue[0], cellsValue[3], cellsValue[6], checkingLines(cellsValue[0], cellsValue[3], cellsValue[6]))) {
+            return;
+        }
+        if (isNum(cells[1], cells[4], cells[7], cellsValue[1], cellsValue[4], cellsValue[7], checkingLines(cellsValue[1], cellsValue[4], cellsValue[7]))) {
+            return;
+        }
+        if (isNum(cells[2], cells[5], cells[8], cellsValue[2], cellsValue[5], cellsValue[8], checkingLines(cellsValue[2], cellsValue[5], cellsValue[8]))) {
+            return;
+        }
+
+
+
     }
 
 
-    function isNum(one_cell,two_cell,three_cell,one_v,two_v,three_v,num) {
+    function isNum(one_cell, two_cell, three_cell, one_v, two_v, three_v, num) {
+        var result = true;
         if (num === 1) {
-            changeColorAndShowMessage(one_cell,two_cell,three_cell, "#337ab7");
+            changeColorAndShowMessage(one_cell, two_cell, three_cell, "#337ab7");
+            result = Boolean(false);
+            return result;
         } else if (num === -1) {
-            changeColorAndShowMessage(one_cell,two_cell,three_cell, "red");
-        } else if (num == 2) {
-            changeColorAndShowMessage(cells, "rgba(0,0,0,0.1)");
+            changeColorAndShowMessage(one_cell, two_cell, three_cell, "red");
+            result = Boolean(false);
+            return result;
         }
+
     }
 
     function changeColorAndShowMessage(one, two, three, color) {
         $("#" + one).css("background-color", color);
         $("#" + two).css("background-color", color);
         $("#" + three).css("background-color", color);
-        // for (var i = 0; i < cells.length; i++) {
-        //     $("#" + cells[i]).css("background-color", color);
-        // }
 
     }
 
@@ -367,12 +380,8 @@
                     return -1;
                 }
             }
-            if (freeCells.length == 0) {
-                return 2;
-            }
         }
         return 0;
-
 
     }
 
