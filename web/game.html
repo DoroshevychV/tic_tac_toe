@@ -246,7 +246,6 @@
 </body>
 <script>
 
-
     var cells = ["cell-one", "cell-two", "cell-three", "cell-four", "cell-five", "cell-six", "cell-seven", "cell-eight", "cell-nine"];
 
     var freeCells = [];
@@ -295,7 +294,7 @@
             $('#gamer-deatails-draw').append("<span>" + " " + response.draw + "</span>");
         },
         'error': function (error) {
-
+            alert(JSON.stringify(error));
         }
     });
 
@@ -342,8 +341,6 @@
         if (isNum(cells[2], cells[5], cells[8], cellsValue[2], cellsValue[5], cellsValue[8], checkingLines(cellsValue[2], cellsValue[5], cellsValue[8]))) {
             return;
         }
-
-
 
     }
 

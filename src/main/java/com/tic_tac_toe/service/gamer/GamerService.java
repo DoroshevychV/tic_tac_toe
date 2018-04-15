@@ -80,4 +80,10 @@ public class GamerService {
         }
         return null;
     }
+
+
+    public GamerDetailsDTO logInGamer(String nickName, String gPassword){
+
+        return null;
+    }
 }

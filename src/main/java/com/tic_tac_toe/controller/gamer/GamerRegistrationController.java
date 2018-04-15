@@ -46,7 +46,7 @@ public class GamerRegistrationController extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         Gamer gamer = new Gamer();
         gamer.setNickName(req.getParameter("nickName"));
@@ -57,10 +57,12 @@ public class GamerRegistrationController extends HttpServlet {
         if(saveGamer){
 
             Cookie nickNameCookie = new Cookie( "nickName", gamer.getNickName());
+            nickNameCookie.setPath("/");
             Cookie gPasswordCookie = new Cookie( "gPassword", gamer.getgPassword());
-
+            gPasswordCookie.setPath("/");
             resp.addCookie(nickNameCookie);
             resp.addCookie(gPasswordCookie);
+            req.getRequestDispatcher("/game.html").forward(req,resp);
         }else{
             throw new IllegalArgumentException("Unknown error, reload page and try again");
         }

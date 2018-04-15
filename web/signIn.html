@@ -127,17 +127,17 @@
             <!--//START//Main of page-->
             <main>
                 <!--START//Log in form-->
-                <form class="form-signin">
+                <form class="form-signin" action="/gamer/login" method="post">
                     <!--Title of the form-->
                     <h2 class="form-signin-heading">Please sign in</h2>
                     <!--START//Label and input for the email adsress-->
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="nickName" id="inputEmail" class="form-control" placeholder="Nickname" required=""
+                    <input name="nickName" type="nickName" id="inputEmail" class="form-control" placeholder="Nickname" required=""
                            autofocus="">
                     <!--END//Label and input for the email adsress-->
                     <!--START//label and input for the password-->
                     <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                    <input name="gPassword" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
                     <!--END//label and input for the password-->
                     <br>
                     <!--Button log in-->

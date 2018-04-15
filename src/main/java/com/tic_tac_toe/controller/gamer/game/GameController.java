@@ -21,6 +21,7 @@ public class GameController extends HttpServlet {
         gamerService = new GamerService();
 
         GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerDetails(cookies);
+        System.out.println(gamerDetailsDTO);
         if (gamerDetailsDTO != null) {
             req.getRequestDispatcher("/game.html").forward(req,resp);
         }else{
