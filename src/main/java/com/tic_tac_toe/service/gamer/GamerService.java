@@ -12,12 +12,9 @@ public class GamerService {
     private GamerDAO gamerDAO;
 
     public boolean saveGamer(Gamer gamer){
-
         if (gamer != null) {
-
             if (gamer.getNickName().length() >= 4 && gamer.getNickName().length() <= 28) {
                  gamerDAO= new GamerDAO();
-
                 if(gamerDAO.getGamerByNickName(gamer.getNickName())== null){
                     if (gamer.getgPassword().length() >= 8 && gamer.getgPassword().length() <= 28) {
                         gamer.setWin(0);
@@ -31,7 +28,6 @@ public class GamerService {
                 }else{
                     throw new IllegalArgumentException("A user with such a nickname already exists!");
                 }
-
             } else {
                 throw new IllegalArgumentException("NickName may contain from 8 to 28 characters inclusive!");
             }
@@ -42,48 +38,57 @@ public class GamerService {
 
     public Gamer getGamerByNickName(String nickName){
         gamerDAO = new GamerDAO();
-
         return gamerDAO.getGamerByNickName(nickName);
     }
 
-
-    public GamerDetailsDTO getGamerDetails(Cookie...cookies) {
-        System.out.println("Service");
+    public GamerDetailsDTO getGamerDetails(Cookie[]cookies) {
         String nickName = null;
-
         String gPassword = null;
-
         for (Cookie cook : cookies) {
             if (cook.getName().equals("nickName")) {
                 nickName = cook.getValue();
-                System.out.println(cook.getName()+" - "+cook.getValue());
             } else if (cook.getName().equals("gPassword")) {
                 gPassword = cook.getValue();
-                System.out.println(cook.getName()+" - "+cook.getValue());
             }
         }
-        System.out.println(nickName);
-
-        System.out.println(gPassword);
         if (nickName != null && gPassword != null) {
-            System.out.println(nickName);
             Gamer gamer = getGamerByNickName(nickName);
-            System.out.println(gamer);
-
-
             if (gamer.getgPassword().equals(gPassword) && gamer.getNickName().equals(nickName)) {
-
                 return new GamerDetailsDTO(gamer.getNickName(),gamer.getWin(), gamer.getDefeat(), gamer.getDraw());
-
             }
-
         }
         return null;
     }
 
-
-    public GamerDetailsDTO logInGamer(String nickName, String gPassword){
-
+    public Gamer logInGamer(String nickName, String gPassword){
+        Gamer gamer = getGamerByNickName(nickName);
+        if (gamer != null){
+            if(gPassword.equals(gamer.getgPassword())){
+                return gamer;
+            }
+        }
         return null;
+    }
+
+    public Cookie setGamerCookie(String path,String key, String value){
+        Cookie cookie = new Cookie(key, value);
+        cookie.setPath(path);
+        return cookie;
+    }
+
+    public Cookie deleteCookie(String path,String key, String value){
+        Cookie cookie = setGamerCookie(path,key,value);
+        cookie.setMaxAge(0);
+        return cookie;
+    }
+
+
+    public Boolean gamerIsAuthentic(Cookie [] cookies){
+        GamerDetailsDTO gamerDetailsDTO = getGamerDetails(cookies);
+        if (gamerDetailsDTO != null) {
+           return true;
+        }else{
+            return false;
+        }
     }
 }

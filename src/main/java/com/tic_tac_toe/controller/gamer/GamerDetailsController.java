@@ -18,28 +18,17 @@ public class GamerDetailsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cookie[] cookies = req.getCookies();
-        System.out.println("controller");
-        for (Cookie cook : cookies) {
-            if (cook.getName().equals("nickName")) {
-                System.out.println(cook.getName()+" - "+cook.getValue());
-
-            } else if (cook.getName().equals("gPassword")) {
-                System.out.println(cook.getName()+" - "+cook.getValue());
-            }
-        }
-
-        System.out.println("заходимо в сервіс");
         gamerService = new GamerService();
         GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerDetails(cookies);
-        System.out.println("Повертаємо json");
         if (gamerDetailsDTO != null) {
-            System.out.println("Повертаємо json");
             String json = new Gson().toJson(gamerDetailsDTO);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(json);
         }else{
-
+            GamerLogOutController gamerLogOutController = new GamerLogOutController();
+            gamerLogOutController.doGet(req,resp);
+            throw new IllegalArgumentException("Gamer not found!");
         }
     }
 

@@ -79,5 +79,17 @@
         <url-pattern>/gamer/game/gamerDetails</url-pattern>
     </servlet-mapping>
 
+    <!--GamerLogOut of the GamerLogOut class-servlet.
+    Title - gamerLogOutController
+    Link - /gamer/logout
+    -->
+    <servlet>
+        <servlet-name>gamerLogOutController</servlet-name>
+        <servlet-class>com.tic_tac_toe.controller.gamer.GamerLogOutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gamerLogOutController</servlet-name>
+        <url-pattern>/gamer/logout</url-pattern>
+    </servlet-mapping>
 
 </web-app>

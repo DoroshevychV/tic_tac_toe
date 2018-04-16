@@ -15,13 +15,23 @@ public class GamerLoginController extends HttpServlet {
     private GamerService gamerService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/signIn.html").forward(req,resp);
+        gamerService = new GamerService();
+        if(gamerService.gamerIsAuthentic(req.getCookies())){
+            resp.sendRedirect(req.getContextPath() + "/");
+        }else{
+            req.getRequestDispatcher("/signIn.html").forward(req,resp);
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("POST POST POST POST POST");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         gamerService = new GamerService();
-        GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerByNickName(req.getParameter("nickName"), req.getParameter("gPassword"));
+        Gamer gamer = gamerService.logInGamer(req.getParameter("nickName"), req.getParameter("gPassword"));
+        if(gamer != null){
+            resp.addCookie(gamerService.setGamerCookie("/","nickName",gamer.getNickName()));
+            resp.addCookie(gamerService.setGamerCookie("/","gPassword",gamer.getgPassword()));
+//            req.getRequestDispatcher("/game.html").forward(req,resp);
+            resp.sendRedirect(req.getContextPath() + "/gamer/game");
+        }
     }
 }

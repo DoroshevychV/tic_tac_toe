@@ -60,7 +60,6 @@ public class GamerDAO {
                 ps.setObject(1, nickName);
                 resultSet = ps.executeQuery();
 
-
                 int id, win, defeat, draw;
                 String nick, gPassword;
                 if(resultSet.next()){

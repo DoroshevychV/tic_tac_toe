@@ -21,11 +21,10 @@ public class GameController extends HttpServlet {
         gamerService = new GamerService();
 
         GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerDetails(cookies);
-        System.out.println(gamerDetailsDTO);
         if (gamerDetailsDTO != null) {
             req.getRequestDispatcher("/game.html").forward(req,resp);
         }else{
-            req.getRequestDispatcher("/signIn.html").forward(req,resp);
+            resp.sendRedirect(req.getContextPath() + "/gamer/login");
         }
 
     }

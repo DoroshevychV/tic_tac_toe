@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Tic-tac-toe - Game</title>
+
+    <!--icon image-->
+    <link rel="icon" type="image/icon" href="img/icon.ico">
+
     <!--START//BOOTSTRAP-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -37,7 +41,22 @@
     <!--END//Add js-files-->
 
 
+    <script type="text/javascript">
+        $.ajax({
+            "url": "http://localhost:8080/gamer/game/gamerDetails",
+            'method': 'get',
+            'success': function (response) {
+                $('#gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
+                $('#gamer-deatails-win').append("<span>" + " " + response.win + "</span>");
+                $('#gamer-deatails-defeat').append("<span>" + " " + response.defeat + "</span>");
+                $('#gamer-deatails-draw').append("<span>" + " " + response.draw + "</span>");
+                $('.log-out-button').show();
+            }
+        });
+    </script>
+
 </head>
+
 <style>
 
     body {
@@ -116,6 +135,27 @@
         color: #777777;
     }
 
+    /*START//result messages*/
+    /*.win-message {*/
+        /*display: none;*/
+    /*}*/
+
+    /*.defeat-message {*/
+        /*display: none;*/
+    /*}*/
+
+    /*.draw-message {*/
+        /*display: none;*/
+    /*}*/
+
+    @media screen and (max-width: 768px){
+        .repeat-button{
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+    }
+    /*END//result messages*/
+
     .gamer-details {
         margin-bottom: 40px;
     }
@@ -153,6 +193,7 @@
     /*END//style of cells*/
 
 
+
 </style>
 <body>
 
@@ -168,7 +209,8 @@
                     <!--START//Link in the header of the site-->
                     <ul class="nav nav-pills pull-right">
                         <!--START//button Home (right side)-->
-                        <li id="header-gamer-nickName"></li>
+                        <li class="active log-out-button" style="display: none;"><a href="/gamer/logout">Log out</a>
+                        </li>
                         <li class="active"><a href="/">Home</a></li>
                         <!--END//button Home (right side)-->
                     </ul>
@@ -186,16 +228,40 @@
                 <h4 id="gamer-deatails-nickName"></h4>
                 <!--START//Gamer statistics-->
                 <ul class="nav nav-pills gamer-details">
-                    <li class="glyphicon glyphicon-circle-arrow-up gamer-deatails-li" id="gamer-deatails-win"><b>Win</b>
+                    <li class="glyphicon glyphicon-ok-circle gamer-deatails-li" id="gamer-deatails-win"><b>Win</b>
                     </li>
-                    <li class="glyphicon glyphicon-circle-arrow-down gamer-deatails-li" id="gamer-deatails-defeat"><b>Defeat</b>
+                    <li class="glyphicon glyphicon-remove-circle gamer-deatails-li" id="gamer-deatails-defeat">
+                        <b>Defeat</b>
                     </li>
-                    <li class="glyphicon glyphicon-globe gamer-deatails-li" id="gamer-deatails-draw"><b>Draw</b></li>
+                    <li class="glyphicon glyphicon-ban-circle gamer-deatails-li" id="gamer-deatails-draw"><b>Draw</b>
+                    </li>
                     <!--START//button Sign in (right side)-->
                     <li id="main-gamer-details"></li>
                     <!--END//button Sign in (right side)-->
                 </ul>
                 <!--END//Gamer statistics-->
+
+                <!--START//win message-->
+                <div class="alert alert-info win-message" role="alert">
+                    <a href="#" class="alert-link">You win!</a>
+                </div>
+                <!--END//win message-->
+
+                <!--START//defeat message-->
+                <div class="alert alert-danger defeat-message" role="alert">
+                    <a href="#" class="alert-link">You lose!</a>
+                </div>
+                <!--END//defeat message-->
+
+                <!--START//defeat message-->
+                <div class="alert alert-warning draw-message" role="alert">
+                    <a href="#" class="alert-link">You have a draw!</a>
+                </div>
+                <!--END//defeat message-->
+
+                <button  style="float: right" type="button" class="btn btn-primary navbar-btn glyphicon glyphicon-repeat repeat-button">Repeat</button>
+
+
 
                 <div class="container-fluid">
                     <div class="row">
@@ -232,7 +298,7 @@
                 <div class="footer">
                     <!--START//Link to the author's website-->
                     <p class="author-footer"><a href="http://www.doroshevych.pp.ua" target="_blank"> © Vadym
-                        Dorohsevych</a></p>
+                        Doroshevych</a></p>
                     <!--END//Link to the author's website-->
                 </div>
             </footer>
@@ -269,6 +335,9 @@
         });
     });
 
+    $( ".repeat-button" ).click(function() {
+        document.
+    });
     //computers step
     function computerStep() {
         if (gameStatus) {
@@ -283,20 +352,6 @@
         }
     }
 
-
-    $.ajax({
-        "url": "http://localhost:8080/gamer/game/gamerDetails",
-        'method': 'get',
-        'success': function (response) {
-            $('#gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
-            $('#gamer-deatails-win').append("<span>" + " " + response.win + "</span>");
-            $('#gamer-deatails-defeat').append("<span>" + " " + response.defeat + "</span>");
-            $('#gamer-deatails-draw').append("<span>" + " " + response.draw + "</span>");
-        },
-        'error': function (error) {
-            alert(JSON.stringify(error));
-        }
-    });
 
     function sendResult(num) {
 

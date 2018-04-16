@@ -4,7 +4,6 @@ import com.tic_tac_toe.domain.model.Gamer;
 import com.tic_tac_toe.service.gamer.GamerService;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,6 @@ import java.io.IOException;
  * @servlet_url /gamer/registration
  */
 public class GamerRegistrationController extends HttpServlet {
-
     private GamerService gamerService;
     /**
      * Handles the HTTP GET method.
@@ -24,6 +22,8 @@ public class GamerRegistrationController extends HttpServlet {
      * The method responds to the HTTP GET request,
      * which in return shows the user the registration page
      * (signUp.html)
+     * If the user is authenticated - redirect to the main page
+     * (index.html(path"/"))
      * @param req - servlet request
      * @param resp - servlet response
      * @throws ServletException
@@ -31,9 +31,13 @@ public class GamerRegistrationController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/signUp.html").forward(req,resp);
+        gamerService = new GamerService();
+        if(gamerService.gamerIsAuthentic(req.getCookies())){
+            resp.sendRedirect(req.getContextPath() + "/");
+        }else{
+            req.getRequestDispatcher("/signUp.html").forward(req,resp);
+        }
     }
-
     /**
      * Handles the HTTP POST method.
      *
@@ -47,22 +51,15 @@ public class GamerRegistrationController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
         Gamer gamer = new Gamer();
         gamer.setNickName(req.getParameter("nickName"));
         gamer.setgPassword(req.getParameter("gPassword"));
         gamerService = new GamerService();
         boolean saveGamer = gamerService.saveGamer(gamer);
-        gamerService = null;
         if(saveGamer){
-
-            Cookie nickNameCookie = new Cookie( "nickName", gamer.getNickName());
-            nickNameCookie.setPath("/");
-            Cookie gPasswordCookie = new Cookie( "gPassword", gamer.getgPassword());
-            gPasswordCookie.setPath("/");
-            resp.addCookie(nickNameCookie);
-            resp.addCookie(gPasswordCookie);
-            req.getRequestDispatcher("/game.html").forward(req,resp);
+            resp.addCookie(gamerService.setGamerCookie("/","nickName",gamer.getNickName()));
+            resp.addCookie(gamerService.setGamerCookie("/","gPassword",gamer.getgPassword()));
+            resp.sendRedirect(req.getContextPath() + "/gamer/game");
         }else{
             throw new IllegalArgumentException("Unknown error, reload page and try again");
         }

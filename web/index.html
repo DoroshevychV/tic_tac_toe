@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Tic-tac-toe - Enhanced version</title>
+    <!--icon image-->
+    <link rel="icon" type="image/icon" href="img/icon.ico">
+
     <!--START//BOOTSTRAP-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -37,6 +40,28 @@
     <!--END//Add js-files-->
 
 
+    <script type="text/javascript">
+        $.ajax({
+            "url": "http://localhost:8080/gamer/game/gamerDetails",
+            'method': 'get',
+            'success': function (response) {
+                $('.log-out-button').show();
+                $('.gamer-info-auth').show();
+                $('.gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
+                $('#gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
+                $('#gamer-deatails-win').append("<span>" + " " + response.win + "</span>");
+                $('#gamer-deatails-defeat').append("<span>" + " " + response.defeat + "</span>");
+                $('#gamer-deatails-draw').append("<span>" + " " + response.draw + "</span>");
+                $('.gamer-details-block').show();
+                $('.game-button').show();
+            },
+            'error': function (error) {
+                $('.sign-in-button').show();
+                $('.sign-up-button').show();
+                $('.sign-in-up-offer').show();
+            }
+        });
+    </script>
 </head>
 <style>
 
@@ -74,6 +99,18 @@
         user-select: none;
     }
 
+    .sign-in-button{
+        display: none;
+    }
+    .log-out-button{
+        display: none;
+    }
+    .game-button{
+        display: none;
+    }
+    .sign-up-button{
+        display: none;
+    }
 
     @media screen and (min-width: 768px) {
         .header {
@@ -111,7 +148,17 @@
     }
 
 
+    /*//User deatails block style*/
 
+    .gamer-details-block{
+        margin-top: 30px;
+        margin-bottom: 30px;
+        display: none;
+    }
+
+    .gamer-deatails-li {
+        margin-right: 5px;
+    }
 
 
 </style>
@@ -128,11 +175,11 @@
                 <div class="header">
                     <!--START//Link in the header of the site-->
                     <ul class="nav nav-pills pull-right">
-                        <!--START//button Game (right side)-->
-                        <li class="active"><a href="/gamer/game" style="background-color: darkgreen">Game</a></li>
-                        <!--END//button Game (right side)-->
                         <!--START//button Sign in (right side)-->
-                        <li class="active"><a href="/gamer/login">Sign in</a></li>
+                        <li class="active sign-in-button" style="display: none;"><a href="/gamer/login">Sign in</a></li>
+                        <!--END//button Sign in (right side)-->
+                        <!--START//button Sign in (right side)-->
+                        <li class="active log-out-button" style="display: none;"><a href="/gamer/logout">Log out</a></li>
                         <!--END//button Sign in (right side)-->
                     </ul>
                     <!--END//Link in the header of the site-->
@@ -145,6 +192,22 @@
 
             <!--//START//Main of page-->
             <main>
+                <div class="gamer-details-block">
+                    <!--Gamer nickName-->
+                    <h4 class="gamer-deatails-nickName"></h4>
+                    <!--START//Gamer statistics-->
+                    <ul class="nav nav-pills gamer-details">
+                        <li class="glyphicon glyphicon glyphicon-ok-circle gamer-deatails-li" id="gamer-deatails-win"><b>Win</b>
+                        </li>
+                        <li class="glyphicon glyphicon-remove-circle gamer-deatails-li" id="gamer-deatails-defeat"><b>Defeat</b>
+                        </li>
+                        <li class="glyphicon glyphicon-ban-circle gamer-deatails-li" id="gamer-deatails-draw"><b>Draw</b></li>
+                        <!--START//button Sign in (right side)-->
+                        <li id="main-gamer-details"></li>
+                        <!--END//button Sign in (right side)-->
+                    </ul>
+                    <!--END//Gamer statistics-->
+                </div>
                 <!--START//Center block (jumbotron)-->
                 <div class="jumbotron">
                     <!--Title(Game name) in center-block -->
@@ -153,9 +216,13 @@
                     <p class="lead">Simple online version of the game <i>"tic-tac-toe"</i>. The user represents the
                         letter "X", and the computer is a digit "0". The game runs on a simple random algorithm.
                         <!--END//Game description-->
-                    <p>To start the game, sign up or log in!</p></p>
+                    <p class="sign-in-up-offer" style="display:none;">To start the game, sign up or log in!</p></p>
+                    <p class="gamer-info-auth" style="display:none;">You are authenticated as <span class="gamer-deatails-nickName"></span></p></p>
+                    <!--START//Game Button-->
+                    <p><a class="btn btn-lg btn-success game-button" href="/gamer/game" role="button">Play game now</a></p>
+                    <!--END//Game Button-->
                     <!--START//Registration Button-->
-                    <p><a class="btn btn-lg btn-success" href="/gamer/registration" role="button">Sign up now</a></p>
+                    <p><a class="btn btn-lg btn-success sign-up-button" href="/gamer/registration" role="button">Sign up now</a></p>
                     <!--END//Registration Button-->
                 </div>
             </main>
@@ -165,7 +232,7 @@
                 <div class="footer">
                     <!--START//Link to the author's website-->
                     <p class="author-footer"><a href="http://www.doroshevych.pp.ua" target="_blank"> © Vadym
-                        Dorohsevych</a></p>
+                        Doroshevych</a></p>
                     <!--END//Link to the author's website-->
                 </div>
             </footer>
@@ -179,4 +246,5 @@
 </body>
 
 </body>
+
 </html>
