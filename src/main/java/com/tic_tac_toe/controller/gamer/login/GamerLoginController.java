@@ -1,5 +1,6 @@
 package com.tic_tac_toe.controller.gamer.login;
 
+import com.google.gson.Gson;
 import com.tic_tac_toe.domain.model.Gamer;
 import com.tic_tac_toe.service.gamer.GamerService;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @author Doroshevych Vadym
@@ -69,6 +71,12 @@ public class GamerLoginController extends HttpServlet {
             resp.addCookie(gamerService.setGamerCookie("/", "nickName", gamer.getNickName()));
             resp.addCookie(gamerService.setGamerCookie("/", "gPassword", gamer.getgPassword()));
             resp.sendRedirect(req.getContextPath() + "/gamer/game");
+        }else{
+            PrintWriter out = resp.getWriter();
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Nickname or password is incorrect.');");
+            out.println("</script>");
+            resp.sendRedirect(req.getContextPath() + "/gamer/login");
         }
     }
 }

@@ -2,12 +2,13 @@ package com.tic_tac_toe.controller.gamer.registration;
 
 import com.tic_tac_toe.domain.model.Gamer;
 import com.tic_tac_toe.service.gamer.GamerService;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * @author  Doroshevych Vadym
  * @version 1.0
@@ -69,7 +70,14 @@ public class GamerRegistrationController extends HttpServlet {
             resp.addCookie(gamerService.setGamerCookie("/","gPassword",gamer.getgPassword()));
             resp.sendRedirect(req.getContextPath() + "/gamer/game");
         }else{
-            throw new IllegalArgumentException("Unknown error, reload page and try again");
+            PrintWriter out = resp.getWriter();
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('*Nickname or password is incorrect." +
+                    "*Verify the correctness of the data entered." +
+                    "*The nickname can contain from 4 to 28 characters inclusive." +
+                    "*The password can contain from 8 to 28 characters inclusive.');");
+            out.println("</script>");
+            resp.sendRedirect(req.getContextPath() + "/gamer/registration");
         }
     }
 }
