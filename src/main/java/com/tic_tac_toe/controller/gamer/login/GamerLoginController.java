@@ -64,7 +64,7 @@ public class GamerLoginController extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         gamerService = new GamerService();
         Gamer gamer = gamerService.logInGamer(req.getParameter("nickName"), req.getParameter("gPassword"));
         if (gamer != null) {
@@ -72,11 +72,7 @@ public class GamerLoginController extends HttpServlet {
             resp.addCookie(gamerService.setGamerCookie("/", "gPassword", gamer.getgPassword()));
             resp.sendRedirect(req.getContextPath() + "/gamer/game");
         }else{
-            PrintWriter out = resp.getWriter();
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Nickname or password is incorrect.');");
-            out.println("</script>");
-            resp.sendRedirect(req.getContextPath() + "/gamer/login");
+            req.getRequestDispatcher("/gamer/login/error").forward(req, resp);
         }
     }
 }

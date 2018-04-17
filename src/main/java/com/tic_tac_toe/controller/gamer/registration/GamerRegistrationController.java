@@ -70,14 +70,7 @@ public class GamerRegistrationController extends HttpServlet {
             resp.addCookie(gamerService.setGamerCookie("/","gPassword",gamer.getgPassword()));
             resp.sendRedirect(req.getContextPath() + "/gamer/game");
         }else{
-            PrintWriter out = resp.getWriter();
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('*Nickname or password is incorrect." +
-                    "*Verify the correctness of the data entered." +
-                    "*The nickname can contain from 4 to 28 characters inclusive." +
-                    "*The password can contain from 8 to 28 characters inclusive.');");
-            out.println("</script>");
-            resp.sendRedirect(req.getContextPath() + "/gamer/registration");
+            req.getRequestDispatcher("/gamer/registration/error").forward(req, resp);
         }
     }
 }

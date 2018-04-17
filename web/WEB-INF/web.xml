@@ -92,4 +92,33 @@
         <url-pattern>/gamer/logout</url-pattern>
     </servlet-mapping>
 
+    <!--//error html-pages-->
+
+    <!--LoginError of the LoginErrorController class-servlet.
+    Title - loginErrorServlet
+    Link - /gamer/login/error
+    -->
+    <servlet>
+        <servlet-name>loginErrorServlet</servlet-name>
+        <servlet-class>com.tic_tac_toe.controller.gamer.login.LoginErrorController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginErrorServlet</servlet-name>
+        <url-pattern>/gamer/login/error</url-pattern>
+    </servlet-mapping>
+
+
+    <!--RegistrationError of the RegistrationErrorController class-servlet.
+    Title - registrationErrorServlet
+    Link - /gamer/registration/error
+    -->
+    <servlet>
+        <servlet-name>registrationErrorServlet</servlet-name>
+        <servlet-class>com.tic_tac_toe.controller.gamer.registration.RegistrationErrorController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registrationErrorServlet</servlet-name>
+        <url-pattern>/gamer/registration/error</url-pattern>
+    </servlet-mapping>
+
 </web-app>
