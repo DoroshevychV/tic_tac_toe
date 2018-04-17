@@ -11,17 +11,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * @author  Doroshevych Vadym
+ * @version 1.0
+ * @since   2018-04-13
+ * @servlet_url /gamer/game/gamerDetails
+ */
 public class GamerDetailsController extends HttpServlet {
-
+    /**
+     * Instance for access to the service
+     */
     private GamerService gamerService;
-
+    /**
+     * Handles the HTTP GET method.
+     *
+     *The method returns the details of the user taken from the cookie
+     * if the given user is not found in the database - cookies are deleted.
+     * @param req - servlet request
+     * @param resp - servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cookie[] cookies = req.getCookies();
         gamerService = new GamerService();
         GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerDetails(cookies);
-
         if (gamerDetailsDTO != null) {
             String json = new Gson().toJson(gamerDetailsDTO);
             resp.setContentType("application/json");

@@ -4,20 +4,34 @@ import com.tic_tac_toe.domain.model.Gamer;
 import com.tic_tac_toe.dto.response.GamerDetailsDTO;
 
 import java.sql.*;
-
+/**Simple dao for Gamer
+ * @author  Doroshevych Vadym
+ * @version 1.0
+ * @since   2018-04-11
+ */
 public class GamerDAO {
-
+    /**
+     * static database link
+     */
     static final String DATABASE_URL = "jdbc:mysql://localhost:3306/tictactoe";
-
+    /**
+     * static jdbc-driver path
+     */
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-
+    /**
+     * static login to database
+     */
     static final String USER = "root";
-
+    /**
+     * static password to database
+     */
     static final String PASSWORD = "root";
 
-
+    /**
+     *Method to store users in a database
+     * @param gamer - Gamer who needs to be registered
+     */
     public void saveGamer(Gamer gamer) {
-
         Connection connection;
 
         try {
@@ -43,17 +57,18 @@ public class GamerDAO {
             e.printStackTrace();
         }
     }
-
+    /**
+     *A method for searching a user in a database by nickName
+     * @param nickName - The name of the user you want to find
+     * @return Found user
+     */
     public Gamer getGamerByNickName(String nickName) {
-
         Connection connection;
         Statement statement;
         Gamer gamer;
         try {
             Class.forName(JDBC_DRIVER);
-
             connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-
             ResultSet resultSet;
 
             try {
@@ -82,17 +97,14 @@ public class GamerDAO {
 
                 gamer = new Gamer(id, nick, gPassword, win, defeat, draw);
 
-
                 resultSet.close();
                 ps.close();
                 statement.close();
                 connection.close();
-
                 return gamer;
             } finally {
                 connection.close();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -101,7 +113,16 @@ public class GamerDAO {
         return null;
     }
 
-
+    /**
+     * Method for updating gamer information
+     * @param nickName - The nickName of the gamer whose information you want to change
+     * @param gPassword - The password of the gamer whose information you want to change,
+     *                  for the need to make sure that the user has the right to change information
+     * @param result - The numerical value by which we determine which parameter to change.
+     *               If 1 is a field(win) , if 0 is a field(draw), if -1 is a field(defeat)
+     * @param number - The numeric value that is inserted in the field
+     * @return - Class with changed user information
+     */
     public GamerDetailsDTO setDeatails(String nickName, String gPassword, int result,int number) {
         Connection connection;
         try {
@@ -130,12 +151,7 @@ public class GamerDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         return null;
-
     }
-
-    //"UPDATE myTable SET Address='New York' WHERE Name='John' AND Address='New Orlean' AND Course='M.Tech'";
-
 
 }
