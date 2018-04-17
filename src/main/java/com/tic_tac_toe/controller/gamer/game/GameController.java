@@ -38,10 +38,14 @@ public class GameController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cookie[] cookies = req.getCookies();
         gamerService = new GamerService();
-        GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerDetails(cookies);
-        if (gamerDetailsDTO != null) {
-            req.getRequestDispatcher("/game.html").forward(req,resp);
-        }else{
+        try {
+            GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerDetails(cookies);
+            if (gamerDetailsDTO != null) {
+                req.getRequestDispatcher("/game.html").forward(req, resp);
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/gamer/login");
+            }
+        }catch (NullPointerException e){
             resp.sendRedirect(req.getContextPath() + "/gamer/login");
         }
     }
