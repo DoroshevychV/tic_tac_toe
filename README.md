@@ -7,14 +7,12 @@ The game is written in Java using JDBC and Servlets.
 Before starting the project, take a few steps:
 ###
 
-1.Create database and table:
+1.Create database and table in MySQL Workbench :
 ###
 
 create database tictactoe;
 
 use tictactoe;
-
-###
 
 create table Gamer(
 
