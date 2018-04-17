@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tic-tac-toe - Game page</title>
-
+    <title>Tic-tac-toe - Main page</title>
     <!--icon image-->
-    <link rel="icon" type="image/icon" href="img/icon.ico">
+    <link rel="icon" type="image/icon" href="img/favicon.ico">
 
     <!--START//BOOTSTRAP-->
     <!-- Latest compiled and minified CSS -->
@@ -40,21 +39,36 @@
 
     <!--END//Add js-files-->
 
-</head>
 
+    <script type="text/javascript">
+        $.ajax({
+            "url": "http://localhost:8080/gamer/game/gamerDetails",
+            'method': 'get',
+            'success': function (response) {
+                $('.log-out-button').show();
+                $('.gamer-info-auth').show();
+                $('.gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
+                $('#gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
+                $('#gamer-deatails-win').append("<span>" + " " + response.win + "</span>");
+                $('#gamer-deatails-defeat').append("<span>" + " " + response.defeat + "</span>");
+                $('#gamer-deatails-draw').append("<span>" + " " + response.draw + "</span>");
+                $('.gamer-details-block').show();
+                $('.game-button').show();
+            },
+            'error': function (error) {
+                $('.sign-in-button').show();
+                $('.sign-up-button').show();
+                $('.sign-in-up-offer').show();
+            }
+        });
+    </script>
+</head>
 <style>
 
     body {
         background-color: #ffff;
     }
 
-    main {
-        margin-bottom: 20px;
-    }
-
-    .footer {
-        margin-top: 20px;
-    }
 
     .lead {
         color: rgba(0, 0, 0, 0.6);
@@ -83,6 +97,19 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+    }
+
+    .sign-in-button{
+        display: none;
+    }
+    .log-out-button{
+        display: none;
+    }
+    .game-button{
+        display: none;
+    }
+    .sign-up-button{
+        display: none;
     }
 
     @media screen and (min-width: 768px) {
@@ -116,73 +143,28 @@
         border-top: 1px solid #e5e5e5;
     }
 
-    .author-footer > a {
+    .author-footer>a{
         color: #777777;
     }
 
-    /*START//result messages*/
-    .win-message {
+
+    /*//User deatails block style*/
+
+    .gamer-details-block{
+        margin-top: 30px;
+        margin-bottom: 30px;
         display: none;
-    }
-
-    .defeat-message {
-        display: none;
-    }
-
-    .draw-message {
-        display: none;
-    }
-
-    @media screen and (max-width: 768px){
-        .repeat-button{
-            margin-top: 5px;
-            margin-bottom: 20px;
-        }
-    }
-    /*END//result messages*/
-
-    .gamer-details {
-        margin-bottom: 40px;
     }
 
     .gamer-deatails-li {
         margin-right: 5px;
     }
 
-    /*START//style of cells*/
-    .cell {
-        height: 16.3vh;
-        background-color: rgba(0, 0, 0, 0.4);
-        cursor: pointer;
-        padding-top: 3.5vh;
-        text-align: center;
-
-    }
-
-    .cell:hover {
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    /*START//style of text in the cells*/
-    .text-x {
-        font-size: 50px;
-        color: lemonchiffon;
-    }
-
-    .text-0 {
-        font-size: 50px;
-        color: lemonchiffon;
-    }
-
-    /*END//style of text in the cells*/
-    /*END//style of cells*/
-
-
 
 </style>
 <body>
 
-<!--START//Main container of the site, it contains all sub-blocks-->
+<!--START//TomcatConfiguration container of the site, it contains all sub-blocks-->
 <div class="container">
     <!--START//Block for the bootstrap grid-->
     <div class="row">
@@ -193,11 +175,12 @@
                 <div class="header">
                     <!--START//Link in the header of the site-->
                     <ul class="nav nav-pills pull-right">
-                        <!--START//button Home (right side)-->
-                        <li class="active"><a href="/">Home</a></li>
-                        <li class="active"><a href="/gamer/login">Sign in</a>
-                        </li>
-                        <!--END//button Home (right side)-->
+                        <!--START//button Sign in (right side)-->
+                        <li class="active sign-in-button" style="display: none;"><a href="/gamer/login">Sign in</a></li>
+                        <!--END//button Sign in (right side)-->
+                        <!--START//button Sign in (right side)-->
+                        <li class="active log-out-button" style="display: none;"><a href="/gamer/logout">Log out</a></li>
+                        <!--END//button Sign in (right side)-->
                     </ul>
                     <!--END//Link in the header of the site-->
                     <!--START//Site name (left side)-->
@@ -207,25 +190,43 @@
             </header>
             <!--END//header-->
 
-            <!--//START//Main of page-->
+            <!--//START//TomcatConfiguration of page-->
             <main>
+                <div class="gamer-details-block">
+                    <!--Gamer nickName-->
+                    <h4 class="gamer-deatails-nickName"></h4>
+                    <!--START//Gamer statistics-->
+                    <ul class="nav nav-pills gamer-details">
+                        <li class="glyphicon glyphicon glyphicon-ok-circle gamer-deatails-li" id="gamer-deatails-win"><b>Win</b>
+                        </li>
+                        <li class="glyphicon glyphicon-remove-circle gamer-deatails-li" id="gamer-deatails-defeat"><b>Defeat</b>
+                        </li>
+                        <li class="glyphicon glyphicon-ban-circle gamer-deatails-li" id="gamer-deatails-draw"><b>Draw</b></li>
+                        <!--START//button Sign in (right side)-->
+                        <li id="main-gamer-details"></li>
+                        <!--END//button Sign in (right side)-->
+                    </ul>
+                    <!--END//Gamer statistics-->
+                </div>
                 <!--START//Center block (jumbotron)-->
                 <div class="jumbotron">
                     <!--Title(Game name) in center-block -->
-                    <h1 style="color: red;font-weight: bold">There was an error checking the data!</h1>
-                    <p>Reasons!</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Only latin is supported</li>
-                        <li class="list-group-item">The password can range from 8 to 28 characters inclusive</li>
-                        <li class="list-group-item">The login can contain from 4 to 28 characters inclusive</li>
-                        <li class="list-group-item">Maybe a user with such data is already registered</li>
-                    </ul>
+                    <h1>Tic-Tac-Toe</h1>
+                    <!--START//Game description-->
+                    <p class="lead">Simple online version of the game <i>"tic-tac-toe"</i>. The user represents the
+                        letter "X", and the computer is a digit "0". The game runs on a simple random algorithm.
+                        <!--END//Game description-->
+                    <p class="sign-in-up-offer" style="display:none;">To start the game, sign up or log in!</p></p>
+                    <p class="gamer-info-auth" style="display:none;">You are authenticated as <span class="gamer-deatails-nickName"></span></p></p>
+                    <!--START//Game Button-->
+                    <p><a class="btn btn-lg btn-success game-button" href="/gamer/game" role="button">Play game now</a></p>
+                    <!--END//Game Button-->
                     <!--START//Registration Button-->
-                    <p><a class="btn btn-lg btn-success sign-up-button" href="/gamer/registration" role="button">Try again</a></p>
+                    <p><a class="btn btn-lg btn-success sign-up-button" href="/gamer/registration" role="button">Sign up now</a></p>
                     <!--END//Registration Button-->
                 </div>
             </main>
-            <!--//END//Main of page-->
+            <!--//END//TomcatConfiguration of page-->
             <!--START//Footer(basement) of the site-->
             <footer>
                 <div class="footer">
@@ -241,6 +242,9 @@
     </div>
     <!--END//Block for the bootstrap grid-->
 </div>
-<!--END//Main container of the site, it contains all sub-blocks-->
+<!--END//TomcatConfiguration container of the site, it contains all sub-blocks-->
 </body>
+
+</body>
+
 </html>
