@@ -31,7 +31,7 @@
     -->
     <servlet>
         <servlet-name>gamerRegistrationController</servlet-name>
-        <servlet-class>com.tic_tac_toe.controller.gamer.GamerRegistrationController</servlet-class>
+        <servlet-class>com.tic_tac_toe.controller.gamer.registration.GamerRegistrationController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>gamerRegistrationController</servlet-name>
@@ -44,7 +44,7 @@
     -->
     <servlet>
         <servlet-name>gamerLoginController</servlet-name>
-        <servlet-class>com.tic_tac_toe.controller.gamer.GamerLoginController</servlet-class>
+        <servlet-class>com.tic_tac_toe.controller.gamer.login.GamerLoginController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>gamerLoginController</servlet-name>
@@ -85,7 +85,7 @@
     -->
     <servlet>
         <servlet-name>gamerLogOutController</servlet-name>
-        <servlet-class>com.tic_tac_toe.controller.gamer.GamerLogOutController</servlet-class>
+        <servlet-class>com.tic_tac_toe.controller.gamer.logout.GamerLogOutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>gamerLogOutController</servlet-name>

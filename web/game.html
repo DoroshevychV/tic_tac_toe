@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tic-tac-toe - Game</title>
+    <title>Tic-tac-toe - Game page</title>
 
     <!--icon image-->
     <link rel="icon" type="image/icon" href="img/icon.ico">
@@ -47,9 +47,9 @@
             'method': 'get',
             'success': function (response) {
                 $('#gamer-deatails-nickName').append("<b>" + response.nickName + "</b>");
-                $('#gamer-deatails-win').append("<span>" + " " + response.win + "</span>");
-                $('#gamer-deatails-defeat').append("<span>" + " " + response.defeat + "</span>");
-                $('#gamer-deatails-draw').append("<span>" + " " + response.draw + "</span>");
+                $('#gamer-deatails-win').append("<span class='details'>" + " " + response.win + "</span>");
+                $('#gamer-deatails-defeat').append("<span class='details'>" + " " + response.defeat + "</span>");
+                $('#gamer-deatails-draw').append("<span class='details'>" + " " + response.draw + "</span>");
                 $('.log-out-button').show();
             }
         });
@@ -136,17 +136,17 @@
     }
 
     /*START//result messages*/
-    /*.win-message {*/
-        /*display: none;*/
-    /*}*/
+    .win-message {
+        display: none;
+    }
 
-    /*.defeat-message {*/
-        /*display: none;*/
-    /*}*/
+    .defeat-message {
+        display: none;
+    }
 
-    /*.draw-message {*/
-        /*display: none;*/
-    /*}*/
+    .draw-message {
+        display: none;
+    }
 
     @media screen and (max-width: 768px){
         .repeat-button{
@@ -330,13 +330,20 @@
                     remove(this.id);
                     result();
                     computerStep();
+                    if(gameStatus && freeCells.length === 0){
+                        // changeColorAndShowMessage(one_cell, two_cell, three_cell, "rgba(0,0,0,0.1)");
+                        $('.cell').css("background-color", "rgba(0,0,0,0.1)");
+                        result = Boolean(false);
+                        $('.draw-message').show();
+                        sendResult(0);
+                    }
                 }
             }
         });
     });
 
-    $( ".repeat-button" ).click(function() {
-        document.
+    $( ".repeat-button").click(function() {
+        location.reload();
     });
     //computers step
     function computerStep() {
@@ -346,17 +353,39 @@
                 $('#' + freeCells[arrayCell]).append("<span class=" + "text-0" + ">O</span>");
                 remove(freeCells[arrayCell]);
                 result();
-            } else {
-
             }
         }
     }
 
-
     function sendResult(num) {
-
+        var numberRequest = {
+            'number': num
+        };
+        $.ajax({
+            "url": "http://localhost:8080/gamer/game",
+            'method': 'post',
+            'data': numberRequest,
+            'success': function (response) {
+                $('.details').remove();
+                $('#gamer-deatails-win').append("<span class='details'>" + " " + response.win + "</span>");
+                $('#gamer-deatails-defeat').append("<span class='details'>" + " " + response.defeat + "</span>");
+                $('#gamer-deatails-draw').append("<span class='details'>" + " " + response.draw + "</span>");
+                if(num === 1){
+                    $('#gamer-deatails-win').css("color","#337ab7");
+                    $('#gamer-deatails-win').css("font-weight","bolder");
+                }else if(num === -1){
+                    $('#gamer-deatails-defeat').css("color","red");
+                    $('#gamer-deatails-defeat').css("font-weight","bolder");
+                }else{
+                    $('#gamer-deatails-draw').css("color","brown");
+                    $('#gamer-deatails-draw').css("font-weight","bolder");
+                }
+            },
+            'error': function (error) {
+                alert(error);
+            }
+        });
     }
-
 
     function result() {
 
@@ -405,12 +434,23 @@
         if (num === 1) {
             changeColorAndShowMessage(one_cell, two_cell, three_cell, "#337ab7");
             result = Boolean(false);
+            $('.win-message').show();
+            sendResult(num);
             return result;
         } else if (num === -1) {
             changeColorAndShowMessage(one_cell, two_cell, three_cell, "red");
             result = Boolean(false);
+            $('.defeat-message').show();
+            sendResult(num);
             return result;
         }
+        // }else if (num === 0) {
+        //     changeColorAndShowMessage(one_cell, two_cell, three_cell, "rgba(0,0,0,0.1)");
+        //     result = Boolean(false);
+        //     $('.draw-message').show();
+        //     sendResult(num);
+        //     return result;
+        // }
 
     }
 
@@ -418,7 +458,6 @@
         $("#" + one).css("background-color", color);
         $("#" + two).css("background-color", color);
         $("#" + three).css("background-color", color);
-
     }
 
     function checkingLines(one, two, three) {
@@ -433,6 +472,11 @@
                 }
             }
         }
+        // if(freeCells.length===0 ){
+        //     if(){
+        //
+        //     }
+        // }
         return 0;
 
     }

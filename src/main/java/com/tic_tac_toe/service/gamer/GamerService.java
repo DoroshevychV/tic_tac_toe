@@ -91,4 +91,24 @@ public class GamerService {
             return false;
         }
     }
+
+    public GamerDetailsDTO setDetail(String nickName,String gPassword,int result){
+        gamerDAO = new GamerDAO();
+        Gamer gamer = getGamerByNickName(nickName);
+        if(gamer.getgPassword().equals(gPassword)){
+            int number;
+            if(result==1){
+                number = gamer.getWin();
+            }else if(result == 0){
+                number = gamer.getDraw();
+            }else{
+                number = gamer.getDefeat();
+            }
+            number++;
+            return gamerDAO.setDeatails(nickName,gPassword,result,number);
+        }else{
+            throw  new IllegalArgumentException("You do not have enough rights");
+        }
+    }
+
 }

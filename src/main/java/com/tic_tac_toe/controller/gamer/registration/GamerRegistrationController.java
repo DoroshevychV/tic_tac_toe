@@ -1,4 +1,4 @@
-package com.tic_tac_toe.controller.gamer;
+package com.tic_tac_toe.controller.gamer.registration;
 
 import com.tic_tac_toe.domain.model.Gamer;
 import com.tic_tac_toe.service.gamer.GamerService;
@@ -15,6 +15,9 @@ import java.io.IOException;
  * @servlet_url /gamer/registration
  */
 public class GamerRegistrationController extends HttpServlet {
+    /**
+     * Instance for access to the service
+     */
     private GamerService gamerService;
     /**
      * Handles the HTTP GET method.
@@ -44,8 +47,8 @@ public class GamerRegistrationController extends HttpServlet {
      * The method responds to the HTTP POST request,
      * and sends registration parameters to the service().
      *
-     * @param req - servlet request(In it we pass the GamerRegistrationDTO who must register)
-     * @param resp - servlet response(In this we return the UserLoginDTO (if it has been successfully registered))
+     * @param req - servlet request(In it we pass the Gamer who must register)
+     * @param resp - servlet response(In this we return the Ga (if it has been successfully registered))
      * @throws ServletException
      * @throws IOException
      */

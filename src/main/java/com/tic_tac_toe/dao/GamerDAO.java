@@ -1,6 +1,7 @@
 package com.tic_tac_toe.dao;
 
 import com.tic_tac_toe.domain.model.Gamer;
+import com.tic_tac_toe.dto.response.GamerDetailsDTO;
 
 import java.sql.*;
 
@@ -15,7 +16,7 @@ public class GamerDAO {
     static final String PASSWORD = "root";
 
 
-    public void saveGamer(Gamer gamer){
+    public void saveGamer(Gamer gamer) {
 
         Connection connection;
 
@@ -33,6 +34,9 @@ public class GamerDAO {
             preparedStatement.setInt(5, gamer.getDraw());
             preparedStatement.executeUpdate();
 
+            preparedStatement.close();
+            connection.close();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -40,7 +44,7 @@ public class GamerDAO {
         }
     }
 
-    public Gamer getGamerByNickName(String nickName){
+    public Gamer getGamerByNickName(String nickName) {
 
         Connection connection;
         Statement statement;
@@ -62,14 +66,14 @@ public class GamerDAO {
 
                 int id, win, defeat, draw;
                 String nick, gPassword;
-                if(resultSet.next()){
-                        id = resultSet.getInt("id");
-                        nick = resultSet.getString("nickName");
-                        gPassword = resultSet.getString("gPassword");
-                        win = resultSet.getInt("win");
-                        defeat = resultSet.getInt("defeat");
-                        draw = resultSet.getInt("draw");
-                }else{
+                if (resultSet.next()) {
+                    id = resultSet.getInt("id");
+                    nick = resultSet.getString("nickName");
+                    gPassword = resultSet.getString("gPassword");
+                    win = resultSet.getInt("win");
+                    defeat = resultSet.getInt("defeat");
+                    draw = resultSet.getInt("draw");
+                } else {
                     resultSet.close();
                     statement.close();
                     connection.close();
@@ -80,6 +84,7 @@ public class GamerDAO {
 
 
                 resultSet.close();
+                ps.close();
                 statement.close();
                 connection.close();
 
@@ -95,4 +100,42 @@ public class GamerDAO {
         }
         return null;
     }
+
+
+    public GamerDetailsDTO setDeatails(String nickName, String gPassword, int result,int number) {
+        Connection connection;
+        try {
+            Class.forName(JDBC_DRIVER);
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            String sSQL = "";
+            if(result == 1){
+                sSQL = "UPDATE Gamer SET win = ? WHERE nickName = ? AND gPassword = ?";
+            }else if(result == 0){
+                sSQL = "UPDATE Gamer SET draw = ? WHERE nickName = ? AND gPassword = ?";
+            }else{
+                sSQL = "UPDATE Gamer SET defeat = ? WHERE nickName = ? AND gPassword = ?";
+            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sSQL);
+            preparedStatement.setInt(1, number);
+            preparedStatement.setString(2, nickName);
+            preparedStatement.setString(3, gPassword);
+            preparedStatement.executeUpdate();
+
+            Gamer gamer = getGamerByNickName(nickName);
+            preparedStatement.close();
+            connection.close();
+            return new GamerDetailsDTO(gamer.getNickName(),gamer.getWin(),gamer.getDefeat(),gamer.getDraw());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    //"UPDATE myTable SET Address='New York' WHERE Name='John' AND Address='New Orlean' AND Course='M.Tech'";
+
+
 }

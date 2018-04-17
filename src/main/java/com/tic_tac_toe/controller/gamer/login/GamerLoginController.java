@@ -1,7 +1,6 @@
-package com.tic_tac_toe.controller.gamer;
+package com.tic_tac_toe.controller.gamer.login;
 
 import com.tic_tac_toe.domain.model.Gamer;
-import com.tic_tac_toe.dto.response.GamerDetailsDTO;
 import com.tic_tac_toe.service.gamer.GamerService;
 
 import javax.servlet.ServletException;
@@ -9,10 +8,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * @author  Doroshevych Vadym
+ * @version 1.0
+ * @since   2018-04-13
+ * @servlet_url /gamer/login
+ */
 public class GamerLoginController extends HttpServlet {
-
+    /**
+     * Instance for access to the service
+     */
     private GamerService gamerService;
+    /**
+     * Handles the HTTP GET method.
+     *
+     * The method responds to the HTTP GET request,
+     * which in return shows the user the login page
+     * (signIn.html)
+     * If the user is authenticated - redirect to the main page
+     * (index.html(path"/"))
+     * @param req - servlet request
+     * @param resp - servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         gamerService = new GamerService();
@@ -22,7 +41,17 @@ public class GamerLoginController extends HttpServlet {
             req.getRequestDispatcher("/signIn.html").forward(req,resp);
         }
     }
-
+    /**
+     * Handles the HTTP POST method.
+     *(Add new author to database)
+     * Method for user authentication
+     * The method responds to the HTTP POST request,
+     * and sends login parameters to the service().
+     * @param req - servlet request(In it we pass the Gamer who must register)
+     * @param resp - servlet response(In this we return the UserLoginDTO (if it has been successfully registered))
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         gamerService = new GamerService();
@@ -30,7 +59,6 @@ public class GamerLoginController extends HttpServlet {
         if(gamer != null){
             resp.addCookie(gamerService.setGamerCookie("/","nickName",gamer.getNickName()));
             resp.addCookie(gamerService.setGamerCookie("/","gPassword",gamer.getgPassword()));
-//            req.getRequestDispatcher("/game.html").forward(req,resp);
             resp.sendRedirect(req.getContextPath() + "/gamer/game");
         }
     }

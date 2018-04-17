@@ -1,6 +1,7 @@
 package com.tic_tac_toe.controller.gamer;
 
 import com.google.gson.Gson;
+import com.tic_tac_toe.controller.gamer.logout.GamerLogOutController;
 import com.tic_tac_toe.dto.response.GamerDetailsDTO;
 import com.tic_tac_toe.service.gamer.GamerService;
 
@@ -20,6 +21,7 @@ public class GamerDetailsController extends HttpServlet {
         Cookie[] cookies = req.getCookies();
         gamerService = new GamerService();
         GamerDetailsDTO gamerDetailsDTO = gamerService.getGamerDetails(cookies);
+
         if (gamerDetailsDTO != null) {
             String json = new Gson().toJson(gamerDetailsDTO);
             resp.setContentType("application/json");
