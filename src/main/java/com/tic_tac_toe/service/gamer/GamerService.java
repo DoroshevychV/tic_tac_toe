@@ -33,19 +33,15 @@ public class GamerService {
                         gamerDAO.saveGamer(gamer);
                         return true;
                     } else {
-//                        throw new IllegalArgumentException("Password may contain from 8 to 28 characters inclusive!");
                         return false;
                     }
                 }else{
-//                    throw new IllegalArgumentException("A user with such a nickname already exists!");
                     return false;
                 }
             } else {
-//                throw new IllegalArgumentException("NickName may contain from 8 to 28 characters inclusive!");
                 return false;
             }
         } else {
-//            throw new NullPointerException("The Gamer can not be null!");
             return false;
         }
     }

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * @author  Doroshevych Vadym
@@ -70,7 +69,7 @@ public class GamerRegistrationController extends HttpServlet {
             resp.addCookie(gamerService.setGamerCookie("/","gPassword",gamer.getgPassword()));
             resp.sendRedirect(req.getContextPath() + "/gamer/game");
         }else{
-            req.getRequestDispatcher("/gamer/registration/error").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/gamer/registration/error");
         }
     }
 }
