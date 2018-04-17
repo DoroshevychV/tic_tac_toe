@@ -35,10 +35,15 @@ public class GamerRegistrationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         gamerService = new GamerService();
-        if(gamerService.gamerIsAuthentic(req.getCookies())){
-            resp.sendRedirect(req.getContextPath() + "/");
-        }else{
-            req.getRequestDispatcher("/signUp.html").forward(req,resp);
+
+        try {
+            if (gamerService.gamerIsAuthentic(req.getCookies())) {
+                resp.sendRedirect(req.getContextPath() + "/");
+            } else {
+                req.getRequestDispatcher("/signUp.html").forward(req, resp);
+            }
+        }catch (NullPointerException e){
+            req.getRequestDispatcher("/signUp.html").forward(req, resp);
         }
     }
     /**
