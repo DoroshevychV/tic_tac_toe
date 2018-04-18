@@ -16,7 +16,7 @@ Before starting the project, take a few steps:
 
 ###
 
-<small style="color: gray;font-weight: 100">
+<p style="color: gray;font-weight: 100">
   
 create database tictactoe;
 
@@ -38,7 +38,7 @@ draw INT
 
 );
 
-</small>
+</p>
 
 ###
 
