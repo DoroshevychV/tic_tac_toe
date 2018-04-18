@@ -18,25 +18,25 @@ Before starting the project, take a few steps:
 
 <p>
   
-create database tictactoe;
+    create database tictactoe;
 
-use tictactoe;
+    use tictactoe;
 
-create table Gamer(
+    create table Gamer(
 
-id int primary key auto_increment,
+    id int primary key auto_increment,
 
-nickName varchar(28),
+    nickName varchar(28),
 
-gPassword varchar(28),
+    gPassword varchar(28),
 
-win INT,
+    win INT,
 
-defeat INT,
+    defeat INT,
 
-draw INT
+    draw INT
 
-);
+    );
 
 </p>
 
@@ -51,9 +51,9 @@ then insert your parameters into the appropriate variables by path:
 <i>src/main/java/com/tic_tac_toe/dao/GamerDAO.java</i>
 
 
-    static final String <b>USER</b> = "Your_user";
+    static final String USER = "Your_user";
 
-    static final String <b>PASSWORD</b> = "Your_password";
+    static final String PASSWORD = "Your_password";
 
 
 ###
@@ -66,7 +66,7 @@ then insert your parameters into the appropriate variables by path:
 
 ###
 
-src > main > config > TomcatConfiguration.java > public static void main(String[] args)
+    src/main/java/com/tic_tac_toe/config/TomcatConfiguration.java > public static void main(String[] args)
 
 
 <b>
