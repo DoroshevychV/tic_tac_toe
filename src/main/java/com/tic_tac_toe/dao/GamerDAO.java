@@ -90,6 +90,7 @@ public class GamerDAO {
                     draw = resultSet.getInt("draw");
                 } else {
                     resultSet.close();
+                    ps.close();
                     statement.close();
                     connection.close();
                     return null;
