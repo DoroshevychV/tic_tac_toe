@@ -31,4 +31,4 @@ draw INT
 ###
 
 2.Start-class(Main):
-src > main > config > public static void main(String[] args)
+src > main > config > TomcatConfiguration.java > public static void main(String[] args)
