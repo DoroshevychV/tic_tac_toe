@@ -40,11 +40,34 @@ draw INT
 
 </p>
 
+
+###
+
+<b>
+2.If your user and password to the database is not "Rut", 
+then insert your parameters into the appropriate variables by path:
+</b>
+
+<i>src/main/java/com/tic_tac_toe/dao/GamerDAO.java</i>
+
+
+**
+     * static login to database
+     */
+    static final String USER = "Your_user";
+    /**
+     * static password to database
+     */
+    static final String PASSWORD = "Your_password";
+
+    /**
+
+
 ###
 
 <b>
   
-2.Start-class(Main):
+3.Start-class(Main):
 
 </b>
 
