@@ -51,16 +51,9 @@ then insert your parameters into the appropriate variables by path:
 <i>src/main/java/com/tic_tac_toe/dao/GamerDAO.java</i>
 
 
-**
-     * static login to database
-     */
-    static final String USER = "Your_user";
-    /**
-     * static password to database
-     */
-    static final String PASSWORD = "Your_password";
+    static final String <b>USER</b> = "Your_user";
 
-    /**
+    static final String <b>PASSWORD</b> = "Your_password";
 
 
 ###
