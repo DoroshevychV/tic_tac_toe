@@ -75,7 +75,7 @@ src > main > config > TomcatConfiguration.java > public static void main(String[
 ###
 
 <i>
-  Back-end поділений на пакети Controller Service DAO Domain 
+  Back-end поділений на пакети Controller-Service-DAO-Domain-DTO-Config
 </i>
 
 ###
@@ -86,3 +86,18 @@ src > main > config > TomcatConfiguration.java > public static void main(String[
 
 <b>Service</b> - Клас, який містить в собі всю бізнес-логіку проекта. Для додавання/витягування/оновлення інформації користувача в базі даних, він використовує клас DAO(<a href="https://uk.wikipedia.org/wiki/Data_access_object" target="_blank">Data Access Object(Wiki)</a>)
 
+###
+
+<b>DAO</b> - Клас, за допомогою якого програма здійснює доступ до бази даних(через JDBC API)
+
+###
+
+<b>Domain</b> - Клас-сутність(entity). Не містить в собі логіку, тільки поля, конструктор та методи доступу до даних!
+
+###
+
+<b>DTO</b> - Скорочений варіант класа-entity, щоб не передавати непотрібні дані, покращуючи цим продуктивність програми!
+
+###
+
+<b>Config</b> - Конфігурації програми. В даному випадку містить в собі метод <i>main</i> , який одночасно являється точкою входу в програму та конфігурацією Tomcat
