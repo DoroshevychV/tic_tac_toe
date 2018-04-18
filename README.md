@@ -16,7 +16,7 @@ Before starting the project, take a few steps:
 
 ###
 
-<small>
+<small style="color: gray;font-weight: 100">
   
 create database tictactoe;
 
