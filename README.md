@@ -1,6 +1,4 @@
-# tic_tac_toe
-
-Tic-Tac-Toe
+# Tic-Tac-Toe
 #
 
 The game is written in Java using JDBC and Servlets.
