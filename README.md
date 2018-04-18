@@ -3,7 +3,7 @@
 
 <b>
   <i>
-    The game is written in Java using JDBC and Servlets.
+    The game is written in Java using JDBC, MySQL and Servlets.
 Before starting the project, take a few steps:
   </i>
 </b>
