@@ -26,14 +26,6 @@
 
     <!--END//BOOTSTRAP-->
 
-
-    <!--START//Add style-files-->
-
-    <!--<link href='css/index_style.css' rel='stylesheet' type='text/css'>-->
-    <!--<link href='css/header_footer/header_footer_style.css' rel='stylesheet' type='text/css'>-->
-
-    <!--END//Add style-files-->
-
     <!--START//Add js-files-->
 
     <!--<script src="js/authentication.js"></script>-->
@@ -108,14 +100,11 @@
 
     .header {
         border-bottom: 1px solid #e5e5e5;
-        /*padding-left: 30px;*/
-        /*padding-right: 30px;*/
     }
 
     .header h3 {
         padding-bottom: 19px;
         margin-bottom: 0;
-        /*line-height: 40px;*/
     }
 
     @media screen and (min-width: 768px) {
@@ -425,9 +414,7 @@
         if (isNum(cells[2], cells[5], cells[8], cellsValue[2], cellsValue[5], cellsValue[8], checkingLines(cellsValue[2], cellsValue[5], cellsValue[8]))) {
             return;
         }
-
     }
-
 
     function isNum(one_cell, two_cell, three_cell, one_v, two_v, three_v, num) {
         var result = true;
@@ -444,14 +431,6 @@
             sendResult(num);
             return result;
         }
-        // }else if (num === 0) {
-        //     changeColorAndShowMessage(one_cell, two_cell, three_cell, "rgba(0,0,0,0.1)");
-        //     result = Boolean(false);
-        //     $('.draw-message').show();
-        //     sendResult(num);
-        //     return result;
-        // }
-
     }
 
     function changeColorAndShowMessage(one, two, three, color) {
@@ -472,11 +451,6 @@
                 }
             }
         }
-        // if(freeCells.length===0 ){
-        //     if(){
-        //
-        //     }
-        // }
         return 0;
 
     }
@@ -494,7 +468,6 @@
             }
         }
     }
-
 
 </script>
 
