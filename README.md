@@ -69,5 +69,5 @@ src > main > config > TomcatConfiguration.java > public static void main(String[
 
 <b>Controller</b> - Це класи-сервлети, які відповідають на певні HTTP-запити(url-path), в контроллерах відбувається прийом запитів, і в певному контроллері вже передається в "підвал" - Service
 
-<b>Service</b> - Клас, який містить в собі всю бізнес-логіку проекта. Для додавання/витягування/оновлення інформації користувача в базі даних, він використовує клас DAO(<a href="https://uk.wikipedia.org/wiki/Data_access_object">Data Access Object</a>)
+<b>Service</b> - Клас, який містить в собі всю бізнес-логіку проекта. Для додавання/витягування/оновлення інформації користувача в базі даних, він використовує клас DAO(<a href="https://uk.wikipedia.org/wiki/Data_access_object" target="_blank">Data Access Object</a>)
 
